@@ -1,0 +1,67 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: apt update
+      apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
+
+    - name: apt upgrade
+      apt: upgrade=dist force_apt_get=yes
+
+    - name: Check if a reboot is needed on all servers
+      register: reboot_required_file
+      stat: path=/var/run/reboot-required
+
+    - name: Reboot the box if kernel updated
+      reboot:
+        msg: "Reboot initiated by Ansible for kernel updates"
+        connect_timeout: 5
+        reboot_timeout: 300
+        pre_reboot_delay: 0
+        post_reboot_delay: 30
+        test_command: uptime
+      when: reboot_required_file.stat.exists
+
+    - name: Install packages
+      apt:
+        name:
+          - htop
+          - powertop
+          - git
+          - stow
+          - cifs-utils
+          - s-tui
+          - iperf3
+        state: latest
+        update_cache: true
+
+    - name: Clone a github repository
+      git:
+        repo: https://gitea.304ad.net/shree/dotfiles.git
+        dest: /home/shree/dotfiles/
+        clone: yes
+        update: yes
+
+    - name: stow files
+      ansible.builtin.shell:
+        cmd: |
+          rm /home/shree/.bashrc
+          rm /home/shree/.profile
+          rm /home/shree/.alias
+          rm /home/shree/.alias-laptop
+          rm /home/shree/.ssh/config
+          stow -d /home/shree/dotfiles/ -t /home/shree -S bash
+          stow -d /home/shree/dotfiles/ -t /home/shree -S nano
+          stow -d /home/shree/dotfiles/ -t /home/shree/.ssh -S ssh-vm
+          rm /home/shree/.alias-laptop
+
+    - name: Remove MOTD ad
+      lineinfile:
+        path: /etc/default/motd-news
+        regexp: ^ENABLED
+        line: ENABLED=0
+
+    - name: Remove execution permission from /etc/update-motd.d/10-help-text
+      file:
+        path: /etc/update-motd.d/10-help-text
+        mode: '0644'
