@@ -5,22 +5,26 @@ ansible_become=yes
 ansible_become_method=sudo
 ansible_python_interpreter='/usr/bin/env python3'
  
-##########################
-## server names may be mapped using /etc/hosts or ~/.ssh/config
-## you can use ip address here too
-###########################
-#[servers]
-
-[ubuntutest]
-ubuntu-test
-
-[dockertest]
-docker-test 
+## server ip/port/username defined in ~/.ssh/config (or /etc/hosts)
 
 [baremetal]
 hiuchuli
 dhaulagiri
 
+[vms]
+ubuntu-test
+docker-test 
+
 [ubuntu]
+hiuchuli
+dhaulagiri
+ubuntu-test
+docker-test 
+
+[test]
+ubuntu-test
+docker-test 
+
+[production]
 hiuchuli
 dhaulagiri
