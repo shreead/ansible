@@ -9,10 +9,10 @@ pipx upgrade --include-injected ansible
 ```
 
 
-Inventory file (can be in the local directory): [[Inventory]]
+Inventory file (can be in the local directory): more details below
 ```
-$ nano inventory
-
+$ nano hosts
+[vms]
 narayani ansible-host=10.10.x.x ansible_port=xx ansible_user=some-user
 kyanjin ansible_host=10.10.x.x ansible_port=xx ansible_user=some-user
 ```
@@ -111,7 +111,7 @@ $ nano copy.yml
 - hosts: test
   tasks:
 
-  - name: copy this-pc-contains file
+  - name: copy file
 	​copy:
       src: file-to-copy.txt
       dest: ~/destination-name.txt
@@ -178,7 +178,7 @@ ansible all -i hosts -m ping
 
 #### apt update
 ```
-	- name: apt update
+    - name: apt update
       apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
 ```
 
@@ -236,7 +236,7 @@ ansible all -i hosts -m ping
 ```
     - name: Clone a git repository
       git:
-        repo: https://wgithub.com/user/repo.git
+        repo: https://github.com/user/repo.git
         dest: /path/to/repo/
         clone: yes
         update: yes
@@ -282,7 +282,7 @@ ansible all -i hosts -m ping
 ```
 #### Delete file
 ```
-    - name: Remove a file in the home directory
+    - name: Remove a file
       file:
         path:
           - /path/to/file.txt
@@ -294,7 +294,7 @@ ansible all -i hosts -m ping
 
 Run shell command
 ```
-    - name: stow files
+    - name: shell command to stow files
       ansible.builtin.shell:
         cmd: |
           stow -d /home/shree/dotfiles/ -t /home/shree -S bash
