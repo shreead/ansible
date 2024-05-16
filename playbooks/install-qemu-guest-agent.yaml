@@ -1,0 +1,15 @@
+---
+- hosts: all
+  become: true
+  tasks:
+
+  - name: Update repo and install QEMU guest agent
+    ansible.builtin.apt:
+      name: qemu-guest-agent
+      update_cache: yes
+
+  - name: start and enable QEMU guest agent
+    ansible.builtin.shell:
+      cmd: |
+        sudo systemctl start qemu-guest-agent
+        sudo systemctl enable qemu-guest-agent

@@ -1,0 +1,15 @@
+---
+- hosts: nonesm
+  become: true
+  tasks:
+    - name: remove ubuntu motd spam
+      become: true
+      file:
+        path: "/var/lib/update-notifier/hide-esm-in-motd"
+        state: touch
+      when: ansible_distribution == 'Ubuntu'
+
+    - name: regenerate update notifier
+      ansible.builtin.shell:
+        cmd: |
+          sudo /usr/lib/update-notifier/update-motd-updates-available --force

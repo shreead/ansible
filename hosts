@@ -7,24 +7,46 @@ ansible_python_interpreter='/usr/bin/env python3'
  
 ## server ip/port/username defined in ~/.ssh/config (or /etc/hosts)
 
+# 10.10.200.2 temp nextcloud
+# 10.10.200.4 temp ubuntu-personal
+
 [baremetal]
 hiuchuli
 dhaulagiri
 
 [vms]
+ubuntu-server
 ubuntu-test
 docker-test 
+arr
+#nextcloud
+10.10.200.2
+#ubuntu-personal
+10.10.200.4
 
 [ubuntu]
 hiuchuli
 dhaulagiri
 ubuntu-test
-docker-test 
+docker-test
+ubuntu-server
+arr
+#nextcloud
+10.10.200.2
+#ubuntu-personal
+10.10.200.4
 
 [test]
 ubuntu-test
-docker-test 
+docker-test
+10.10.200.2 
+10.10.200.4
 
 [production]
 hiuchuli
 dhaulagiri
+ubuntu-server
+arr
+#nextcloud
+#ubuntu-personal
+
