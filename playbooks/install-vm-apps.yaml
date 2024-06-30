@@ -10,5 +10,6 @@
         - stow
         - htop
         - cifs-utils
+        - unattended-upgrades
       update_cache: yes
 
