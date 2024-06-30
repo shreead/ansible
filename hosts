@@ -15,7 +15,7 @@ ansible_python_interpreter='/usr/bin/env python3'
 dhaulagiri
 
 [vms]
-#plex-manaslu
+plex-manaslu ansible_user='root'
 ubuntu-server
 arr
 ubuntu-personal 
@@ -24,7 +24,7 @@ docker1
 [ubuntu]
 #hiuchuli
 dhaulagiri
-#plex-manaslu
+plex-manaslu ansible_user='root'
 ubuntu-server
 arr
 ubuntu-personal 
@@ -36,7 +36,7 @@ docker1
 
 [production]
 #hiuchuli
-#plex-manaslu
+plex-manaslu ansible_user='root'
 dhaulagiri
 ubuntu-server
 arr
