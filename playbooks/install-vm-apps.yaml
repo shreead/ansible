@@ -1,0 +1,14 @@
+---
+- hosts: all
+  become: true
+  tasks:
+
+  - name: Update repo and install QEMU guest agent
+    ansible.builtin.apt:
+      name:
+        - git
+        - stow
+        - htop
+        - cifs-utils
+      update_cache: yes
+

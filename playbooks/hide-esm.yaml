@@ -1,5 +1,5 @@
 ---
-- hosts: nonesm
+- hosts: all
   become: true
   tasks:
     - name: remove ubuntu motd spam
